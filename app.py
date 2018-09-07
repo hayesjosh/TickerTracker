@@ -9,10 +9,10 @@ from bokeh.embed import components
 import os
 
 #starting up our app
-app_ticker = Flask(__name__)
+app = Flask(__name__)
 
 #the primary page
-@app_ticker.route('/index',methods=['GET','POST'])
+@app.route('/index',methods=['GET','POST'])
 def index_tick():
     if request.method == 'GET':
         return render_template('index.html')
@@ -58,12 +58,12 @@ def index_tick():
 #sending user over to the newly made graph.html
         return render_template('graph.html', script=script, div=div)
 
-@app_ticker.route('/about')
+@app.route('/about')
 def about():
   return render_template('about.html')
 
 if __name__ == '__main__':
   #port = int(os.environ.get("PORT", 5000))
-  app_ticker.run(host='0.0.0.0', port=33507)
-  #app_ticker.run(port=33507)
-  #app_ticker.run(debug=True)
+  app.run(host='0.0.0.0', port=33507)
+  #app.run(port=33507)
+  #app.run(debug=True)
