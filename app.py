@@ -23,7 +23,7 @@ def index_tick():
     ##Setting up the webscrape
     #A little function that accepts 'ticker' 'start_date' and 'end_date' and concats them into a url
     def urldefine(ticker, start_date, end_date):
-        seq = ("https://www.quandl.com/api/v3/datasets/EOD/"+ticker+".json?start_date="+start_date+"&end_date="+end_date+"&api_key=TQ15R7SeyT-_W-bqEDJY")
+        seq = ("https://www.quandl.com/api/v3/datasets/WIKI/"+ticker+".json?start_date="+start_date+"&end_date="+end_date+"&api_key=TQ15R7SeyT-_W-bqEDJY")
         return seq
     #bringing over the user input
     ticker_1 = request.form['ticker_input']
