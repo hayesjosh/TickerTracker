@@ -2,16 +2,17 @@
 from flask import Flask, render_template, request, redirect
 import requests
 import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
 import os
-import json
 
 #starting up our app
 app = Flask(__name__)
 
 #the primary page
-@app.route('/',methods=['GET','POST'])
+@app.route('/index',methods=['GET','POST'])
 def index_tick():
     if request.method == 'GET':
         return render_template('index.html')
@@ -62,7 +63,6 @@ def about():
   return render_template('about.html')
 
 if __name__ == '__main__':
-  #port = int(os.environ.get("PORT", 5000))
+  port = int(os.environ.get("PORT", 5000))
   #app.run(host='0.0.0.0', port=port)
-  app.run(port=33507)
   #app.run(debug=True)
