@@ -5,18 +5,12 @@ import pandas as pd
 from bokeh.plotting import figure, output_file, show
 from bokeh.embed import components
 import os
-import json
 
 #starting up our app
 app = Flask(__name__)
 
 #the primary page
-@app.route('/')
-def index():
-  return render_template('index.html')
-
-#on click
-@app.route('/index',methods=['GET','POST'])
+@app.route('/',methods=['GET','POST'])
 def index_tick():
     if request.method == 'GET':
         return render_template('index.html')
@@ -30,7 +24,8 @@ def index_tick():
             seq = ("https://www.quandl.com/api/v3/datasets/EOD/"+ticker+".json?start_date="+start_date+"&end_date="+end_date+"&api_key=TQ15R7SeyT-_W-bqEDJY")
             return seq
         #bringing over the user input
-        ticker_1 = request.form['ticker_input']
+        #ticker_1 = request.form['ticker_input']
+        ticker_1 = 'MSFT'
         #ideally this will be user input or update automatically, but for now, let's use these defaults to test
         start_date_1 = '2017-08-07'
         end_date_1 = '2017-09-07'
@@ -51,20 +46,24 @@ def index_tick():
         jdata['date'] = pd.to_datetime(jdata['date'], format= '%Y-%m-%d')
         ##let's graph it in Bokeh!
         # output to static HTML file
-        #output_file("templates/graphs.html")
+        output_file("templates/graphs.html")
         # create a new plot with a title and axis labels
         p = figure(title=ticker_1+" Stock Tracker: Value at Closing", x_axis_type='datetime', x_axis_label='Date', y_axis_label='$ Value')
         # add a line renderer with legend and line thickness
         p.line(jdata['date'], jdata['close'], line_width=2)
         # show the results
-        #show(p)
-        script, div = components(p)
-        ##sending user over to the newly made graph.html
-        return render_template('graph.html', script=script, div=div)
-        #return redirect('graphs.html')
+        show(p)
+        #script, div = components(p)
+#sending user over to the newly made graph.html
+        #return render_template('graph.html', script=script, div=div)
+        return redirect('graphs.html')
+
+@app.route('/about')
+def about():
+  return render_template('about.html')
 
 if __name__ == '__main__':
-  port = int(os.environ.get("PORT", 5000))
-  app.run(host='0.0.0.0', port=port)
-  #app.run(port=33507)
+  #port = int(os.environ.get("PORT", 5000))
+  #app.run(host='0.0.0.0', port=port)
+  app.run(port=33507)
   #app.run(debug=True)
