@@ -26,7 +26,8 @@ def index_tick():
         seq = ("https://www.quandl.com/api/v3/datasets/EOD/"+ticker+".json?start_date="+start_date+"&end_date="+end_date+"&api_key=TQ15R7SeyT-_W-bqEDJY")
         return seq
     #bringing over the user input
-    ticker_1 = request.form['ticker_input']
+    #ticker_1 = request.form['ticker_input']
+    ticker_1 = 'MSFT'
     #ideally this will be user input or update automatically, but for now, let's use these defaults to test
     start_date_1 = '2017-08-07'
     end_date_1 = '2017-09-07'
